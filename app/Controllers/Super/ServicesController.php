@@ -13,28 +13,29 @@ class ServicesController extends BaseController
     private ServiceService $serviceService;
     private ServiceModel $serviceModel;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->serviceService = Factories::class(ServiceService::class);
         $this->serviceModel = model(ServiceModel::class);
     }
 
-    public function index(){
+    public function index()
+    {
         $data = [
-            'title'   => 'Serviços',
+            'title' => 'Serviços',
             'services' => $this->serviceService->renderServices(),
         ];
 
         return view('Back/Services/index', $data);
     }
-    
-    public function edit(int $id){
-       // $this->checkMethod('put');
-        //dd($service);
+
+    public function edit(int $id)
+    {
         $data = [
-            'title'         => 'Editar dados do Serviço',
-            'service'        => $service = $this->serviceModel->findOrFail($id),
+            'title' => 'Editar dados do Serviço',
+            'service' => $service = $this->serviceModel->findOrFail($id),
         ];
-        
+
 
         return view('Back/Services/edit', $data);
     }
@@ -54,17 +55,16 @@ class ServicesController extends BaseController
         return redirect()->route('services')->with('success', 'Sucesso!');
     }
 
-    public function new(){
-        // $this->checkMethod('put');
-         //dd($service);
-         $data = [
-             'title'         => 'Adicionar novo Serviço',
-             'service'        => new Service()
-         ];
-         
- 
-         return view('Back/Services/new', $data);
-     }
+    public function new()
+    {
+        $data = [
+            'title' => 'Adicionar novo Serviço',
+            'service' => new Service()
+        ];
+
+
+        return view('Back/Services/new', $data);
+    }
 
     public function update(int $id)
     {
@@ -93,18 +93,19 @@ class ServicesController extends BaseController
     }
 
 
-    public function discount(int $id){
+    public function discount(int $id)
+    {
 
-         $data = [
-             'title'         => 'Editar dados do Serviço',
-             'service'        => $service = $this->serviceModel->findOrFail($id),
-         ];
-         
- 
-         return view('Back/Services/discount', $data);
-     }
+        $data = [
+            'title' => 'Editar dados do Serviço',
+            'service' => $service = $this->serviceModel->findOrFail($id),
+        ];
 
-     public function discounted(int $id)
+
+        return view('Back/Services/discount', $data);
+    }
+
+    public function discounted(int $id)
     {
         $this->checkMethod('put');
 
@@ -141,12 +142,43 @@ class ServicesController extends BaseController
         return redirect()->route('services')->with('success', 'Sucesso!');
     }
 
-    public function report(){
+    public function report()
+    {
         $data = [
-            'title'   => 'Relatório de Serviços',
+            'title' => 'Relatório de Serviços',
             'services' => $this->serviceService->renderServices(),
         ];
 
         return view('Back/Services/report', $data);
+    }
+
+    public function showReport(){
+
+    $dataInicial = $this->request->getVar('dataInicial');
+    $dataFinal = $this->request->getVar('dataFinal');
+    $dates = $this->serviceService->getServicesDate($dataInicial, $dataFinal);
+    $totalValue = array_sum(array_column($dates, 'total'));
+
+    $created_at = array();
+
+    if(empty($created_at) || empty($dataInicial) || empty($dataFinal)){
+        return redirect()->back()
+        ->withInput()
+        ->with('danger', 'Não há dados para serem exibidos');
+    }
+
+    foreach ($dates as $date) {
+        $created_at[] = $date->created_at;
+    }
+
+    array_multisort($created_at, SORT_ASC, $dates);
+
+    $data = [
+        'title' => 'Relatório de Serviços',
+        'dates' => $dates,
+        'totalValue' => $totalValue
+    ];
+
+    return view('Back/Services/showReport', $data);
     }
 }

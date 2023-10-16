@@ -31,6 +31,8 @@ $routes->group('super', static function ($routes){
         $routes->get('discount/(:num)', [ServicesController::class, 'discount/$1'], ['as' => 'services.discount']);
         $routes->put('discounted/(:num)', [ServicesController::class, 'discounted/$1'], ['as' => 'services.discounted']);
         $routes->get('report', [ServicesController::class, 'report'], ['as' => 'services.report']); 
+        $routes->post('showReport', [ServicesController::class, 'showReport'], ['as' => 'services.showReport']);
+
     });
 
     $routes->group('vehicles', static function ($routes) {

@@ -58,4 +58,17 @@ class ServiceService extends MyBaseService{
 
         return $btnActions;
     }
+
+    public function getServicesDate($dataInicial, $dataFinal){
+    $db = \Config\Database::connect();
+
+    $query = $db->table('services')
+            ->select('created_at, total, description')
+            ->where('created_at >=', $dataInicial)
+            ->where('created_at <=', $dataFinal)
+            ->get()
+            ->getResult();
+
+    return $query;
+    }
 }

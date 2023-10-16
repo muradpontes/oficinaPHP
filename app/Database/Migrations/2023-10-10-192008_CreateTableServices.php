@@ -19,6 +19,7 @@ class CreateTableServices extends Migration
             'numero_os' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 70,
+                'auto_increment' => true,
             ],
 
             'created_at' => [

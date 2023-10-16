@@ -1,23 +1,24 @@
 <?php
 
 namespace App\Models;
-use App\Entities\Client;
+use App\Entities\Vehicle;
 
-class ClientModel extends MyBaseModel
+class VehicleModel extends MyBaseModel
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'clients';
+    protected $table            = 'vehicles';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = Client::class;
+    protected $returnType       = Vehicle::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields = [
         'id',
-        'name',
-        'email',
-        'phone',
-        'address',
+        'brand',
+        'model',
+        'year',
+        'license_plate',
+        'client_id',
     ];
 
     // Dates
@@ -26,18 +27,17 @@ class ClientModel extends MyBaseModel
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
-    
-
     // Validation
     protected $validationRules = [
         'id' => 'permit_empty|is_natural_no_zero',
-        'name' => 'required|max_length[69]|is_unique[clients.name,id,{id}]',
-        'phone' => 'required|exact_length[14]|is_unique[clients.phone,id,{id}]',
-        'email' => 'required|valid_email|max_length[99]|is_unique[clients.email,id,{id}]',
-        'address' => 'required|max_length[128]',
+        'brand' =>'required',
+        'model' =>  'required',
+        'year' => 'required|exact_length[4]',
+        'license_plate' => 'required|exact_length[7]|is_unique[vehicles.license_plate,id,{id}]',
+        'client_id' => 'required',
     ];
     protected $validationMessages = [
-        'name' => [
+        'brand' => [
             'required' => 'Obrigatório',
             'max_length' => 'Máximo 69 caracteres',
             'is_unique' => 'Já existe',

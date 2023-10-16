@@ -65,9 +65,9 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?php echo route_to('vehicles'); ?>">
                     <i class="fas fa-fw fa-cogs"></i>
-                    <span>Serviços</span></a>
+                    <span>Veículos</span></a>
             </li>
 
             <!-- Divider -->
@@ -76,13 +76,16 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-home"></i>
-                    <span>Agendamentos</span></a>
+                <a class="nav-link" href="<?php echo route_to('services'); ?>">
+                    <i class="fas fa-fw fa-cogs"></i>
+                    <span>Serviços</span></a>
             </li>
 
-
-
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo route_to('services.report'); ?>">
+                    <i class="fas fa-fw fa-cogs"></i>
+                    <span>Relatório de Serviços</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

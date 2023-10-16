@@ -43,11 +43,11 @@
                         </td>
                     </tr>
                 <?php } ?>
-                <tr>
+                <tr class="table table-active">
                     <th scope="row">Total</th>
                     <td></td>
-                    <td>
-                        <?php echo $totalValue; ?>
+                    <td><b>
+                        <?php echo $totalValue; ?></b>
                     </td>
                 </tr>
             </tbody>
@@ -56,7 +56,7 @@
     </div>
     
 </div>
-<a href="<?php echo route_to('services') ?>" class="btn btn-secondary btn-sm float-right">Voltar</a>
+<a href="<?php echo route_to('services.report') ?>" class="btn btn-secondary btn-sm float-right">Voltar</a>
 <?php echo $this->endSection(); ?>
 
 

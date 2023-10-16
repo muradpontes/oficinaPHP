@@ -161,7 +161,7 @@ class ServicesController extends BaseController
 
     $created_at = array();
 
-    if(empty($created_at) || empty($dataInicial) || empty($dataFinal)){
+    if(empty($dataInicial) || empty($dataFinal)){
         return redirect()->back()
         ->withInput()
         ->with('danger', 'Não há dados para serem exibidos');
